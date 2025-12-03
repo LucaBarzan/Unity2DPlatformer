@@ -7,11 +7,10 @@ public class JumpState : AirborneState
     [SerializeField] private SurfaceContactSensor surfaceContactSensor;
     [SerializeField] private float jumpStrength;
 
-    public override void Enter()
+    protected override void OnEnable()
     {
-        IsComplete = false;
         physicsController2D.AddVelocity(Vector2.up * jumpStrength, AdditionalVelocityType.Additional);
-        base.Enter();
+        base.OnEnable();
     }
 
     protected override void Update()
@@ -19,11 +18,11 @@ public class JumpState : AirborneState
         base.Update();
 
         if (velocity.y <= 0)
-            IsComplete = true;
+            SetStateComplete();
     }
 
-    public override void Exit()
+    private void OnDisable()
     {
-        base.Exit();
+
     }
 }

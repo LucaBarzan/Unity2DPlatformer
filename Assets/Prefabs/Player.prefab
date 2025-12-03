@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6974294535136742728}
   - component: {fileID: 1346817934403043302}
   - component: {fileID: 1529787972458512688}
+  - component: {fileID: 560718361092673290}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -126,10 +127,22 @@ MonoBehaviour:
   animator: {fileID: 3470103305413312402}
   input_Jump: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   input_Slide: {fileID: 7040659881675835329, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  characterMovement: {fileID: 560718361092673290}
+--- !u!114 &560718361092673290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147421376398659304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb1eb804a80c6a43b4613ae69341766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   contactSensor: {fileID: 545334370357791567}
   groundedState: {fileID: 120623100815655185}
   airborneState: {fileID: 662273430439014063}
-  jumpState: {fileID: 1081636850604956627}
 --- !u!1 &266911676155534851
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +272,7 @@ MonoBehaviour:
   acceleration: 70
   deceleration: 70
   physicsController2D: {fileID: 7249943896861926337}
-  playerMovementInput: {fileID: 2221360247279541731}
+  movementDirectionProvider: {fileID: 5504654485223338968}
   surfaceContactSensor: {fileID: 545334370357791567}
   jumpStrength: 20
 --- !u!1 &6141240206040812347
@@ -422,7 +435,7 @@ MonoBehaviour:
   acceleration: 70
   deceleration: 70
   physicsController2D: {fileID: 7249943896861926337}
-  playerMovementInput: {fileID: 2221360247279541731}
+  movementDirectionProvider: {fileID: 5504654485223338968}
 --- !u!1 &7783530646858854330
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,8 +500,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2490799880641355699}
   - component: {fileID: 2221360247279541731}
+  - component: {fileID: 5504654485223338968}
   m_Layer: 0
-  m_Name: PlayerMovementInput
+  m_Name: MovementDirectionProvider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,6 +536,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input_Movement: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  movementDirectionProvider: {fileID: 5504654485223338968}
+--- !u!114 &5504654485223338968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7972363697500900477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8dafa264502dfb4c8c10678f958695b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8720448360038108977
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +602,7 @@ MonoBehaviour:
   notWalkableSlope_SlideAcceleration: 10
   physicsController2D: {fileID: 7249943896861926337}
   surfaceContactSensor: {fileID: 545334370357791567}
-  playerMovementInput: {fileID: 2221360247279541731}
+  movementDirectionProvider: {fileID: 5504654485223338968}
 --- !u!1 &8774290312553283552
 GameObject:
   m_ObjectHideFlags: 0

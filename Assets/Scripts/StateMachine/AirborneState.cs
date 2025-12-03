@@ -9,20 +9,16 @@ public class AirborneState : State
     [SerializeField] private float deceleration;
 
     [SerializeField] protected PhysicsController2D physicsController2D;
-    [SerializeField] private PlayerMovementInput playerMovementInput;
+    [SerializeField] private MovementDirectionProvider movementDirectionProvider;
+
     protected Vector2 velocity;
-    private Vector2 movementDirection => playerMovementInput.InputDirection;
+    private Vector2 movementDirection => movementDirectionProvider.MoveDirection;
     private float horizontalSpeed = 0.0f;
 
-    protected override void Awake()
+    protected override void OnEnable()
     {
-        base.Awake();
-        IsComplete = true;
-    }
+        base.OnEnable();
 
-    public override void Enter()
-    {
-        base.Enter();
         velocity = physicsController2D.Velocity;
         horizontalSpeed = velocity.x;
     }
@@ -34,9 +30,9 @@ public class AirborneState : State
         physicsController2D.SetVelocity(velocity);
     }
 
-    public override void Exit()
+    private void OnDisable()
     {
-        base.Exit();
+
 
     }
 

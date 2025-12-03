@@ -68,7 +68,7 @@ public class MoveTowards : MonoBehaviour
                 MoveDynamic();
                 break;
 
-                case RigidbodyType2D.Kinematic:
+            case RigidbodyType2D.Kinematic:
                 MoveKinematic();
                 break;
         }

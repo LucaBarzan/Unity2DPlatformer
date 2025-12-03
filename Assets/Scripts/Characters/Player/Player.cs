@@ -5,18 +5,11 @@ public class Player : Character
 {
     [SerializeField] InputActionReference input_Jump;
     [SerializeField] InputActionReference input_Slide;
-    [SerializeField] SurfaceContactSensor contactSensor;
-    [SerializeField] GroundedState groundedState;
-    [SerializeField] AirborneState airborneState;
-    [SerializeField] JumpState jumpState;
-
-    //[SerializeField] ;
-
-    private readonly StateMachine stateMachine = new StateMachine();
+    [SerializeField] CharacterMovement characterMovement;
 
     private void Awake()
     {
-        stateMachine.Set(airborneState);
+
     }
 
     private void OnEnable()
@@ -31,7 +24,7 @@ public class Player : Character
 
     private void Update()
     {
-        SelectState();
+
     }
 
     private void FixedUpdate()
@@ -62,22 +55,7 @@ public class Player : Character
 
     private void OnJumpInput_performed(InputAction.CallbackContext obj)
     {
-        stateMachine.Set(jumpState);
-    }
-
-    private void SelectState()
-    {
-        if (!stateMachine.State.IsComplete)
-            return;
-
-        if (contactSensor.GroundHit)
-        {
-            stateMachine.Set(groundedState);
-        }
-        else
-        {
-            stateMachine.Set(airborneState);
-        }
+        // characterMovement.
     }
 
     private void SetControllable(bool controllable)

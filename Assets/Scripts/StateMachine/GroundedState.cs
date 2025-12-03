@@ -12,9 +12,9 @@ public class GroundedState : State
 
     [SerializeField] private PhysicsController2D physicsController2D;
     [SerializeField] private SurfaceContactSensor surfaceContactSensor;
-    [SerializeField] private PlayerMovementInput playerMovementInput;
+    [SerializeField] private MovementDirectionProvider movementDirectionProvider;
 
-    private Vector2 movementDirection => playerMovementInput.InputDirection;
+    private Vector2 movementDirection => movementDirectionProvider.MoveDirection;
     private RaycastHit2D groundHit => surfaceContactSensor.GroundHit;
 
     private float horizontalSpeed = 0.0f;
@@ -26,15 +26,10 @@ public class GroundedState : State
     private float groundFlowSign = 1.0f;
     private Vector2 groundDirection = Vector2.zero;
 
-    protected override void Awake()
+    protected override void OnEnable()
     {
-        base.Awake();
-        IsComplete = true;
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
+        base.OnEnable();
+        Debug.Log("On enable");
         velocity = physicsController2D.Velocity;
         horizontalSpeed = velocity.x;
     }
@@ -47,9 +42,8 @@ public class GroundedState : State
         physicsController2D.SetVelocity(velocity);
     }
 
-    public override void Exit()
+    private void OnDisable()
     {
-        base.Exit();
 
     }
 
