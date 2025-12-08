@@ -10,6 +10,7 @@ public class AirborneState : State
 
     [SerializeField] protected PhysicsController2D physicsController2D;
     [SerializeField] private MovementDirectionProvider movementDirectionProvider;
+    [SerializeField] protected SurfaceContactSensor surfaceContactSensor;
 
     protected Vector2 velocity;
     private Vector2 movementDirection => movementDirectionProvider.MoveDirection;
@@ -25,6 +26,12 @@ public class AirborneState : State
 
     protected virtual void Update()
     {
+        if (IsStateComplete())
+        {
+            SetStateComplete();
+            return;
+        }
+
         HandleDirection();
         HandleGravity();
         physicsController2D.SetVelocity(velocity);
@@ -59,4 +66,6 @@ public class AirborneState : State
     {
         velocity.y = Mathf.MoveTowards(velocity.y, -maxFallSpeed, gravity * Time.deltaTime);
     }
+
+    protected virtual bool IsStateComplete() => surfaceContactSensor.GroundHit;
 }

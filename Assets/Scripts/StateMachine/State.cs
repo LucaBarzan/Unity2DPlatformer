@@ -16,7 +16,7 @@ public abstract class State : MonoBehaviour
 
     protected void SetStateComplete()
     {
-        OnCompleted?.Invoke();
         enabled = false;
+        OnCompleted?.Invoke();
     }
 }

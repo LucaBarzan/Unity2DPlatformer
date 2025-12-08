@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6974294535136742728}
   - component: {fileID: 1346817934403043302}
   - component: {fileID: 1529787972458512688}
-  - component: {fileID: 560718361092673290}
+  - component: {fileID: 136651101480684039}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -125,10 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 9127395904060206026}
   animator: {fileID: 3470103305413312402}
-  input_Jump: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  input_Slide: {fileID: 7040659881675835329, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  characterMovement: {fileID: 560718361092673290}
---- !u!114 &560718361092673290
+--- !u!114 &136651101480684039
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,12 +134,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 147421376398659304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abb1eb804a80c6a43b4613ae69341766, type: 3}
+  m_Script: {fileID: 11500000, guid: caab90f1434c0b544904ec57d23b0944, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   contactSensor: {fileID: 545334370357791567}
   groundedState: {fileID: 120623100815655185}
   airborneState: {fileID: 662273430439014063}
+  jumpState: {fileID: 1081636850604956627}
+  input_Jump: {fileID: 0}
+  input_Slide: {fileID: 0}
 --- !u!1 &266911676155534851
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,6 +177,153 @@ Transform:
   - {fileID: 8004275907893022760}
   m_Father: {fileID: 4621764772097766533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3024428980697248645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1064275831941960726}
+  - component: {fileID: 1659713863200027272}
+  m_Layer: 0
+  m_Name: Walk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1064275831941960726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3024428980697248645}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4579495744586020905}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1659713863200027272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3024428980697248645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21e3bb9992ad97e4ca035807cb1cb050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalkState
+  physicsController2D: {fileID: 7249943896861926337}
+  movementDirectionProvider: {fileID: 5504654485223338968}
+  groundData: {fileID: 8577161922873492524}
+  maxSpeed: 10
+  acceleration: 100
+  gravity: 0.5
+--- !u!1 &3080109105980919820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9172546363775669058}
+  - component: {fileID: 609455360584737073}
+  m_Layer: 0
+  m_Name: Idle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9172546363775669058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3080109105980919820}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4579495744586020905}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &609455360584737073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3080109105980919820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c915c0f33cda6e64ea6b4b599876f608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterIdleState
+  physicsController2D: {fileID: 7249943896861926337}
+  groundData: {fileID: 8577161922873492524}
+  deceleration: 100
+  gravity: 0.5
+--- !u!1 &4096515185351571197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5946222962008703128}
+  - component: {fileID: 8689300328221552941}
+  m_Layer: 0
+  m_Name: Slope
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5946222962008703128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096515185351571197}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4579495744586020905}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8689300328221552941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096515185351571197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecfb13999cf39074f998ccbf4ac087b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlopeState
+  physicsController2D: {fileID: 7249943896861926337}
+  groundData: {fileID: 8577161922873492524}
+  maxSlideSpeed: 15
+  slideAcceleration: 100
+  gravity: 0.5
 --- !u!1 &4668349796016976929
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,6 +457,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9127395904060206026
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -328,6 +476,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -349,9 +499,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -361,7 +513,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &3470103305413312402
 Animator:
@@ -436,6 +587,53 @@ MonoBehaviour:
   deceleration: 70
   physicsController2D: {fileID: 7249943896861926337}
   movementDirectionProvider: {fileID: 5504654485223338968}
+  surfaceContactSensor: {fileID: 545334370357791567}
+--- !u!1 &7129842918379167360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7060369400835604833}
+  - component: {fileID: 8577161922873492524}
+  m_Layer: 0
+  m_Name: GroundDataHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7060369400835604833
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7129842918379167360}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4347133958526611112}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8577161922873492524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7129842918379167360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad57c49bf745ca54cb1a8f6e7396ccf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EvaluateGroundValues
+  surfaceContactSensor: {fileID: 545334370357791567}
+  maxSlopeAngle: 45
 --- !u!1 &7783530646858854330
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,11 +683,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   checkGround: 1
-  groundCheckSize: {x: 0.4, y: 0.05}
+  groundCheckSize: {x: 0.5, y: 0.05}
   checkWalls: 1
   wallCheckSize: {x: 0.05, y: 0.9}
   checkCeiling: 1
-  ceilingCheckSize: {x: 0.4, y: 0.05}
+  ceilingCheckSize: {x: 0.5, y: 0.05}
 --- !u!1 &7972363697500900477
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +776,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 9172546363775669058}
+  - {fileID: 1064275831941960726}
+  - {fileID: 5946222962008703128}
   m_Father: {fileID: 6570548226976821775}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &120623100815655185
@@ -593,15 +794,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa1154c7b746774f84aa31c912f377e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
-  acceleration: 100
-  deceleration: 100
-  gravity: 0.5
-  maxSlopeAngle: 45
-  notWalkableSlope_MaxSlideSpeed: 40
-  notWalkableSlope_SlideAcceleration: 10
-  physicsController2D: {fileID: 7249943896861926337}
-  surfaceContactSensor: {fileID: 545334370357791567}
+  idleState: {fileID: 609455360584737073}
+  walkState: {fileID: 1659713863200027272}
+  slopeState: {fileID: 8689300328221552941}
+  groundData: {fileID: 8577161922873492524}
   movementDirectionProvider: {fileID: 5504654485223338968}
 --- !u!1 &8774290312553283552
 GameObject:
@@ -635,5 +831,6 @@ Transform:
   - {fileID: 8942433189350338353}
   - {fileID: 5938335584759329099}
   - {fileID: 2490799880641355699}
+  - {fileID: 7060369400835604833}
   m_Father: {fileID: 4621764772097766533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

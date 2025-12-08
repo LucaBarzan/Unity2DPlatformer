@@ -1,93 +1,61 @@
 using UnityEngine;
 
-public class GroundedState : State 
+public class GroundedState : State
 {
-    [SerializeField] private float maxSpeed;
-    [SerializeField] private float acceleration;
-    [SerializeField] private float deceleration;
-    [SerializeField] private float gravity;
-    [SerializeField] private float maxSlopeAngle = 45.0f;
-    [SerializeField] private float notWalkableSlope_MaxSlideSpeed;
-    [SerializeField] private float notWalkableSlope_SlideAcceleration;
-
-    [SerializeField] private PhysicsController2D physicsController2D;
-    [SerializeField] private SurfaceContactSensor surfaceContactSensor;
+    [SerializeField] private CharacterIdleState idleState;
+    [SerializeField] private WalkState walkState;
+    [SerializeField] private SlopeState slopeState;
+    [SerializeField] private GroundDataHandler groundData;
     [SerializeField] private MovementDirectionProvider movementDirectionProvider;
-
     private Vector2 movementDirection => movementDirectionProvider.MoveDirection;
-    private RaycastHit2D groundHit => surfaceContactSensor.GroundHit;
 
-    private float horizontalSpeed = 0.0f;
-    private Vector2 velocity;
+    private readonly StateMachine stateMachine = new StateMachine();
 
-    // Slope related
-    private float slopeAngle = 0.0f;
-    private bool walkableGround = false;
-    private float groundFlowSign = 1.0f;
-    private Vector2 groundDirection = Vector2.zero;
+    protected override void Awake()
+    {
+        base.Awake();
+
+        stateMachine.Add(walkState)
+            .Add(idleState)
+            .Add(slopeState);
+    }
 
     protected override void OnEnable()
     {
         base.OnEnable();
-        Debug.Log("On enable");
-        velocity = physicsController2D.Velocity;
-        horizontalSpeed = velocity.x;
+        SelectState();
     }
 
     private void Update()
     {
-        EvaluateGroundSlope();
-        HandleDirection();
-        HandleGravity();
-        physicsController2D.SetVelocity(velocity);
+        if (!groundData.IsGrounded)
+        {
+            SetStateComplete();
+            return;
+        }
+
+        SelectState();
     }
 
     private void OnDisable()
     {
-
+        stateMachine.DisableAllStates();
     }
 
-    private void EvaluateGroundSlope()
+    private void SelectState()
     {
-        slopeAngle = Vector2.Angle(groundHit.normal, Vector2.up);
-
-        walkableGround = slopeAngle <= maxSlopeAngle;
-
-        groundDirection = -Vector2.Perpendicular(groundHit.normal).normalized;
-        groundFlowSign = Mathf.Sign(Vector2.Dot(groundDirection, Vector2.down));
-    }
-
-    private void HandleDirection()
-    {
-        float horizontalInput = movementDirection.x;
-
-        if (!walkableGround)
+        if (groundData.IsOnSlope)
         {
-            // Add reverse velocity to the player
-            horizontalSpeed = Mathf.MoveTowards(
-                horizontalSpeed,
-                notWalkableSlope_MaxSlideSpeed * groundFlowSign,
-                notWalkableSlope_SlideAcceleration * Time.deltaTime);
-        }
-        else if (horizontalInput == 0)
-        {
-            horizontalSpeed = Mathf.MoveTowards(horizontalSpeed, 0, deceleration * Time.deltaTime);
-        }
-        // Is grounded or on the air
-        else
-        {
-            float horizontalTargetSpeed = maxSpeed * horizontalInput;
-
-            horizontalSpeed = Mathf.MoveTowards(horizontalSpeed, horizontalTargetSpeed, acceleration * Time.deltaTime);
+            stateMachine.Set(slopeState);
+            return;
         }
 
-        // Handle Slope horizontal movement
-        velocity = horizontalSpeed * groundDirection;
-    }
+        if (movementDirection == Vector2.zero)
+        {
+            stateMachine.Set(idleState);
+            return;
+        }
 
-    private void HandleGravity()
-    {
-        // Add little gravity to stick to the ground
-        velocity -= groundHit.normal * gravity;
+        stateMachine.Set(walkState);
     }
 }

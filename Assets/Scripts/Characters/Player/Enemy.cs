@@ -1,16 +1,17 @@
+
 using UnityEngine;
 
 public class Enemy : Character
 {
-    [SerializeField] WanderState wanderState;
-    [SerializeField] ChaseState chaseState;
+    [SerializeField] WaypointPatrollerState patrolState;
+    [SerializeField] MoveToTargetState chaseState;
     [SerializeField] AttackState attackState;
 
     private readonly StateMachine stateMachine = new StateMachine();
 
     private void Awake()
     {
-        stateMachine.Add(wanderState)
+        stateMachine.Add(patrolState)
             .Add(chaseState)
             .Add(attackState);
     }
@@ -23,7 +24,7 @@ public class Enemy : Character
 
     private void Start()
     {
-        stateMachine.Set(wanderState);
+        stateMachine.Set(patrolState);
     }
 
     private void Update()

@@ -10,6 +10,34 @@ public static class Helpers
 
     public static bool IsCloseTo(this Vector2 positionA, Vector2 positionB, float threshold = 0.1f) => IsCloseTo(positionA, positionB, threshold);
 
+    /// <summary>
+    /// Finds the closest point on a line to a given point.
+    /// </summary>
+    /// <param name="lineStart">The start point of the line.</param>
+    /// <param name="lineEnd">The end point of the line.</param>
+    /// <param name="point">The point to find the closest point on the line from.</param>
+    /// <returns>The closest point on the line to the given point.</returns>
+    public static Vector3 ClosestPointOnLine(Vector3 lineStart, Vector3 lineEnd, Vector3 point)
+    {
+        Vector3 line = lineEnd - lineStart;
+        float lineLengthSq = line.sqrMagnitude; // Squared length of the line
+
+        // Handle degenerate line
+        if (lineLengthSq <= Mathf.Epsilon)
+        {
+            return lineStart;
+        }
+
+        // Calculate the projection of the vector from lineStart to point onto the line
+        float t = Vector3.Dot(point - lineStart, line) / lineLengthSq;
+
+        // Clamp 't' to be between 0 and 1, ensuring the point lies within the line
+        t = Mathf.Clamp01(t);
+
+        // Calculate the closest point on the line
+        return lineStart + t * line;
+    }
+
     #region Layermask
 
     /// <summary> Checks whether a specified layer is included in the given LayerMask. </summary>

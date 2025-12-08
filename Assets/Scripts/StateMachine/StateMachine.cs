@@ -6,7 +6,7 @@ public sealed class StateMachine
     public State State { get; private set; }
 
     private readonly HashSet<State> states = new();
-
+    
     public StateMachine Add(State state)
     {
         states.Add(state);
@@ -19,9 +19,10 @@ public sealed class StateMachine
             (newState != State || forceReset) && // Avoid 
             newState.IsAvailable)
         {
+            
             if (State != null)
                 State.enabled = false;
-
+            
             State = newState;
 
             if (State != null)

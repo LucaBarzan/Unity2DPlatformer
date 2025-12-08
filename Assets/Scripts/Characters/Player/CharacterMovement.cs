@@ -10,42 +10,33 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private GroundedState groundedState;
     [SerializeField] private AirborneState airborneState;
 
-    private readonly StateMachine stateMachine = new StateMachine();
+    protected readonly StateMachine stateMachine = new StateMachine();
 
-    private void Awake()
+    protected virtual void Awake()
     {
         Transform = transform;
 
         stateMachine.Add(groundedState).Add(airborneState);
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
-
+        groundedState.OnCompleted += GroundedState_OnCompleted;
+        airborneState.OnCompleted += AirborneState_OnCompleted;
     }
 
-    private void Start()
-    {
-        stateMachine.Set(airborneState);
+    private void AirborneState_OnCompleted() => SelectState();
 
-    }
+    private void GroundedState_OnCompleted() => SelectState();
 
-    private void Update()
-    {
-        SelectState();
-    }
+    protected virtual void Start() => SelectState();
 
-    private void FixedUpdate()
-    {
-
-    }
-
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         stateMachine.DisableAllStates();
     }
 
-    private void SelectState()
+    protected virtual void SelectState()
     {
         if (contactSensor.GroundHit)
         {

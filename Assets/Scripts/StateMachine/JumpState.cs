@@ -4,7 +4,6 @@ public class JumpState : AirborneState
 {
     public override bool IsAvailable => surfaceContactSensor != null && surfaceContactSensor.GroundHit;
 
-    [SerializeField] private SurfaceContactSensor surfaceContactSensor;
     [SerializeField] private float jumpStrength;
 
     protected override void OnEnable()
@@ -13,16 +12,8 @@ public class JumpState : AirborneState
         base.OnEnable();
     }
 
-    protected override void Update()
+    protected override bool IsStateComplete()
     {
-        base.Update();
-
-        if (velocity.y <= 0)
-            SetStateComplete();
-    }
-
-    private void OnDisable()
-    {
-
+        return velocity.y <= 0 && base.IsStateComplete();
     }
 }

@@ -1,19 +1,16 @@
 using UnityEngine;
 
-public class WalkState : State
+public class CharacterIdleState : State
 {
     [SerializeField] private PhysicsController2D physicsController2D;
-    [SerializeField] private MovementDirectionProvider movementDirectionProvider;
     [SerializeField] private GroundDataHandler groundData;
 
-    [SerializeField] private float maxSpeed;
-    [SerializeField] private float acceleration;
+    [SerializeField] private float deceleration;
     [SerializeField] private float gravity;
 
-    private Vector2 movementDirection => movementDirectionProvider.MoveDirection;
     private float horizontalSpeed = 0.0f;
     private Vector2 velocity;
-    
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -30,10 +27,7 @@ public class WalkState : State
 
     private void HandleDirection()
     {
-
-        float horizontalTargetSpeed = maxSpeed * movementDirection.x;
-
-        horizontalSpeed = Mathf.MoveTowards(horizontalSpeed, horizontalTargetSpeed, acceleration * Time.deltaTime);
+        horizontalSpeed = Mathf.MoveTowards(horizontalSpeed, 0, deceleration * Time.deltaTime);
 
         // Handle Slope horizontal movement
         velocity = horizontalSpeed * groundData.GroundDirection;
