@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 27242342}
   - component: {fileID: 27242344}
   - component: {fileID: 27242343}
+  - component: {fileID: 27242345}
   m_Layer: 7
   m_Name: Hitbox
   m_TagString: Untagged
@@ -167,10 +168,10 @@ MonoBehaviour:
   OnCollisionEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8194150953567993754}
-        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
-        m_MethodName: OnAttackPlayer
-        m_Mode: 1
+      - m_Target: {fileID: 27242345}
+        m_TargetAssemblyTypeName: DamageDealer, Assembly-CSharp
+        m_MethodName: OnCollisionDetected
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -237,6 +238,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5, y: 0.25}
   m_EdgeRadius: 0
+--- !u!114 &27242345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27242341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cca08a445095d43895e46a809ddd59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageDealer
+  Damage: {fileID: 11400000, guid: 908fa2db26c97ce44b094628b1de9994, type: 2}
+  AttackerTransform: {fileID: 8194150953567993753}
+  myCollider: {fileID: 27242344}
+  obstacleLayers: {fileID: 11400000, guid: 68ecb167789d86b4aad1fb16a9018cf7, type: 2}
 --- !u!1 &218981059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,8 +1633,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterIdleState
   physicsController2D: {fileID: 6127235245224978653}
   groundData: {fileID: 1707383595}
-  deceleration: 100
   gravity: 0.5
+  deceleration: 100
 --- !u!1 &1302616294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1704,7 +1721,6 @@ MonoBehaviour:
   myTransform: {fileID: 8194150953567993753}
   movementDirectionProvider: {fileID: 6861006403911731042}
   reachDistance: 0.1
-  debug: 1
   attackRangeSensor: {fileID: 933343969}
 --- !u!1 &1452051879
 GameObject:
@@ -1752,9 +1768,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlopeState
   physicsController2D: {fileID: 6127235245224978653}
   groundData: {fileID: 1707383595}
+  gravity: 0.5
   maxSlideSpeed: 15
   slideAcceleration: 100
-  gravity: 0.5
 --- !u!1 &1525342509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,11 +1816,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalkState
   physicsController2D: {fileID: 6127235245224978653}
-  movementDirectionProvider: {fileID: 6861006403911731042}
   groundData: {fileID: 1707383595}
+  gravity: 0.5
+  movementDirectionProvider: {fileID: 6861006403911731042}
   maxSpeed: 5
   acceleration: 100
-  gravity: 0.5
 --- !u!1 &1607988958
 GameObject:
   m_ObjectHideFlags: 0
@@ -2308,7 +2324,6 @@ MonoBehaviour:
   myTransform: {fileID: 8194150953567993753}
   movementDirectionProvider: {fileID: 6861006403911731042}
   reachDistance: 0.1
-  debug: 0
 --- !u!1 &2107214865
 GameObject:
   m_ObjectHideFlags: 0
@@ -2746,6 +2761,7 @@ GameObject:
   - component: {fileID: 2532269512735323386}
   - component: {fileID: 8194150953567993754}
   - component: {fileID: 8194150953567993755}
+  - component: {fileID: 8194150953567993756}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -3137,6 +3153,28 @@ MonoBehaviour:
   contactSensor: {fileID: 3892760215084908627}
   groundedState: {fileID: 2115226196}
   airborneState: {fileID: 4081501919911814579}
+--- !u!114 &8194150953567993756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3719701197299287540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbca2ac9515606c4ca29a4fe1b595c90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  OnHealed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthEmpty:
+    m_PersistentCalls:
+      m_Calls: []
+  health: {fileID: 11400000, guid: 70c42216830b6384eb1eb844e9350f01, type: 2}
 --- !u!4 &8265479690593751623
 Transform:
   m_ObjectHideFlags: 0

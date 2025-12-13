@@ -44,7 +44,10 @@ public class Enemy : Character
 
     private void AttackState_OnCompleted()
     {
-        stateMachine.Set(chaseState);
+        if (chaseState.TargetTransform != null)
+            stateMachine.Set(chaseState);
+        else
+            stateMachine.Set(patrolState);
     }
 
     public void OnPlayerInsideRangeAttack()

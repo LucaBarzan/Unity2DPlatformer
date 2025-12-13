@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1346817934403043302}
   - component: {fileID: 1529787972458512688}
   - component: {fileID: 136651101480684039}
+  - component: {fileID: 1831461044268574998}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -143,6 +144,40 @@ MonoBehaviour:
   jumpState: {fileID: 1081636850604956627}
   input_Jump: {fileID: 0}
   input_Slide: {fileID: 0}
+--- !u!114 &1831461044268574998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147421376398659304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbca2ac9515606c4ca29a4fe1b595c90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  OnHealed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthEmpty:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 147421376398659304}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  health: {fileID: 11400000, guid: 22789535bacdb3040a7fad4b6ebc71ed, type: 2}
 --- !u!1 &266911676155534851
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,11 +257,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalkState
   physicsController2D: {fileID: 7249943896861926337}
-  movementDirectionProvider: {fileID: 5504654485223338968}
   groundData: {fileID: 8577161922873492524}
+  gravity: 0.5
+  movementDirectionProvider: {fileID: 5504654485223338968}
   maxSpeed: 10
   acceleration: 100
-  gravity: 0.5
 --- !u!1 &3080109105980919820
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,8 +308,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterIdleState
   physicsController2D: {fileID: 7249943896861926337}
   groundData: {fileID: 8577161922873492524}
-  deceleration: 100
   gravity: 0.5
+  deceleration: 100
 --- !u!1 &4096515185351571197
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,9 +356,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlopeState
   physicsController2D: {fileID: 7249943896861926337}
   groundData: {fileID: 8577161922873492524}
+  gravity: 0.5
   maxSlideSpeed: 15
   slideAcceleration: 100
-  gravity: 0.5
 --- !u!1 &4668349796016976929
 GameObject:
   m_ObjectHideFlags: 0
