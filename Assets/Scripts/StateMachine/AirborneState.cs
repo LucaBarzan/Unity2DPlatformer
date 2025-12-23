@@ -37,12 +37,6 @@ public class AirborneState : State
         physicsController2D.SetVelocity(velocity);
     }
 
-    private void OnDisable()
-    {
-
-
-    }
-
     private void HandleDirection()
     {
         float horizontalInput = movementDirection.x;

@@ -7,11 +7,10 @@ public class Enemy : Character
     [SerializeField] MoveToTargetState chaseState;
     [SerializeField] AttackState attackState;
 
-    private readonly StateMachine stateMachine = new StateMachine();
-
-    private void Awake()
+    protected override void Awake()
     {
-        stateMachine.Add(patrolState)
+        base.Awake();
+        StateMachine.Add(patrolState)
             .Add(chaseState)
             .Add(attackState);
     }
@@ -24,7 +23,7 @@ public class Enemy : Character
 
     private void Start()
     {
-        stateMachine.Set(patrolState);
+        StateMachine.Set(patrolState);
     }
 
     private void Update()
@@ -37,27 +36,28 @@ public class Enemy : Character
 
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         attackState.OnCompleted -= AttackState_OnCompleted;
     }
 
     private void AttackState_OnCompleted()
     {
         if (chaseState.TargetTransform != null)
-            stateMachine.Set(chaseState);
+            StateMachine.Set(chaseState);
         else
-            stateMachine.Set(patrolState);
+            StateMachine.Set(patrolState);
     }
 
     public void OnPlayerInsideRangeAttack()
     {
-        stateMachine.Set(attackState);
+        StateMachine.Set(attackState);
     }
 
     public void OnPlayerDetected(Collider2D collider2D)
     {
         chaseState.TargetTransform = collider2D.transform;
-        stateMachine.Set(chaseState);
+        StateMachine.Set(chaseState);
     }
 }

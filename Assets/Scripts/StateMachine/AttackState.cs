@@ -46,8 +46,9 @@ public class AttackState : State
         }
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         attackObject.SetActive(false);
     }
 }

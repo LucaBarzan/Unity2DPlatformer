@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public sealed class StateMachine
 {
     public State State { get; private set; }
 
     private readonly HashSet<State> states = new();
-    
+
     public StateMachine Add(State state)
     {
         states.Add(state);
@@ -19,10 +18,10 @@ public sealed class StateMachine
             (newState != State || forceReset) && // Avoid 
             newState.IsAvailable)
         {
-            
+
             if (State != null)
                 State.enabled = false;
-            
+
             State = newState;
 
             if (State != null)
@@ -34,8 +33,21 @@ public sealed class StateMachine
     {
         foreach (var state in states)
             state.enabled = false;
+
+        State = null;
     }
 
     private bool ContainsState(State state) => states != null && states.Count > 0 && states.Contains(state);
 
+    public List<State> GetActiveStateBranch(List<State> states = null)
+    {
+        if (states == null)
+            states = new List<State>();
+
+        if (State == null || !State.enabled)
+            return states;
+
+        states.Add(State);
+        return State.StateMachine.GetActiveStateBranch(states);
+    }
 }

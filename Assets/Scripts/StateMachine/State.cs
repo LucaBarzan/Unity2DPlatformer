@@ -1,16 +1,20 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State : MonoBehaviour
+public abstract class State : StateMachineBehaviour
 {
     public event Action OnCompleted;
     public virtual bool IsAvailable => true;
-
-    private float startTime;
-
     public float TimePassed => Time.time - startTime;
 
-    protected virtual void Awake() => enabled = false;
+    protected float startTime;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        enabled = false;
+    }
 
     protected virtual void OnEnable() => startTime = Time.time;
 

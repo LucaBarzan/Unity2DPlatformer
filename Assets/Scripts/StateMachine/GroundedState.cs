@@ -9,13 +9,11 @@ public class GroundedState : State
     [SerializeField] private MovementDirectionProvider movementDirectionProvider;
     private Vector2 movementDirection => movementDirectionProvider.MoveDirection;
 
-    private readonly StateMachine stateMachine = new StateMachine();
-
     protected override void Awake()
     {
         base.Awake();
 
-        stateMachine.Add(walkState)
+        StateMachine.Add(walkState)
             .Add(idleState)
             .Add(slopeState);
     }
@@ -37,25 +35,20 @@ public class GroundedState : State
         SelectState();
     }
 
-    private void OnDisable()
-    {
-        stateMachine.DisableAllStates();
-    }
-
     private void SelectState()
     {
         if (groundData.IsOnSlope)
         {
-            stateMachine.Set(slopeState);
+            StateMachine.Set(slopeState);
             return;
         }
 
         if (movementDirection == Vector2.zero)
         {
-            stateMachine.Set(idleState);
+            StateMachine.Set(idleState);
             return;
         }
 
-        stateMachine.Set(walkState);
+        StateMachine.Set(walkState);
     }
 }

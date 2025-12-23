@@ -12,8 +12,5 @@ public class JumpState : AirborneState
         base.OnEnable();
     }
 
-    protected override bool IsStateComplete()
-    {
-        return velocity.y <= 0 && base.IsStateComplete();
-    }
+    protected override bool IsStateComplete() => velocity.y <= 0;
 }

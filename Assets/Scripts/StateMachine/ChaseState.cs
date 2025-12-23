@@ -10,8 +10,9 @@ public class ChaseState : MoveToTargetState
         attackRangeSensor.SetActive(true);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         attackRangeSensor.SetActive(false);
     }
 }

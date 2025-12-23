@@ -1,22 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class CharacterMovement : MonoBehaviour
+public class CharacterMovement : StateMachineBehaviour
 {
-    public Transform Transform { get; private set; }
     public Vector3 Position => Transform.position;
 
     [SerializeField] private SurfaceContactSensor contactSensor;
     [SerializeField] private GroundedState groundedState;
     [SerializeField] private AirborneState airborneState;
 
-    protected readonly StateMachine stateMachine = new StateMachine();
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
-        Transform = transform;
+        base.Awake();
 
-        stateMachine.Add(groundedState).Add(airborneState);
+        StateMachine.Add(groundedState).Add(airborneState);
     }
 
     protected virtual void OnEnable()
@@ -31,20 +29,15 @@ public class CharacterMovement : MonoBehaviour
 
     protected virtual void Start() => SelectState();
 
-    protected virtual void OnDisable()
-    {
-        stateMachine.DisableAllStates();
-    }
-
     protected virtual void SelectState()
     {
         if (contactSensor.GroundHit)
         {
-            stateMachine.Set(groundedState);
+            StateMachine.Set(groundedState);
         }
         else
         {
-            stateMachine.Set(airborneState);
+            StateMachine.Set(airborneState);
         }
     }
 }

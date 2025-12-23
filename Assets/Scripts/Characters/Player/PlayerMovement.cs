@@ -10,7 +10,7 @@ public class PlayerMovement : CharacterMovement
     protected override void Awake()
     {
         base.Awake();
-        stateMachine.Add(jumpState);
+        StateMachine.Add(jumpState);
     }
 
     protected override void OnEnable()
@@ -44,7 +44,7 @@ public class PlayerMovement : CharacterMovement
 
     private void OnJumpInput_performed(InputAction.CallbackContext obj)
     {
-        stateMachine.Set(jumpState);
+        StateMachine.Set(jumpState);
     }
 
     private void JumpState_OnCompleted() => SelectState();

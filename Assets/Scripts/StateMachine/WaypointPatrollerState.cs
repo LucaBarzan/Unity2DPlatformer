@@ -9,12 +9,11 @@ public class WaypointPatrollerState : State
     private Transform waypointTransform => waypoints[currentWaypoint];
 
     private int currentWaypoint;
-    private readonly StateMachine stateMachine = new StateMachine();
 
     protected override void Awake()
     {
         base.Awake();
-        stateMachine.Add(moveToTargetState).Add(idleState);
+        StateMachine.Add(moveToTargetState).Add(idleState);
     }
 
     protected override void OnEnable()
@@ -25,23 +24,23 @@ public class WaypointPatrollerState : State
         idleState.OnCompleted += IdleState_OnCompleted;
 
         moveToTargetState.TargetTransform = waypointTransform;
-        stateMachine.Set(moveToTargetState);
+        StateMachine.Set(moveToTargetState);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        stateMachine.DisableAllStates();
+        base.OnDisable();
         moveToTargetState.OnCompleted -= MoveToTargetState_OnCompleted;
         idleState.OnCompleted -= IdleState_OnCompleted;
     }
 
-    private void MoveToTargetState_OnCompleted() => stateMachine.Set(idleState);
+    private void MoveToTargetState_OnCompleted() => StateMachine.Set(idleState);
 
     private void IdleState_OnCompleted()
     {
         currentWaypoint++;
         currentWaypoint %= waypoints.Length;
         moveToTargetState.TargetTransform = waypointTransform;
-        stateMachine.Set(moveToTargetState);
+        StateMachine.Set(moveToTargetState);
     }
 }
